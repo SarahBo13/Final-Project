@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://music-encoding.org/schema/5.1/mei-all.rng"
+            type="application/xml"
+            schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://music-encoding.org/schema/5.1/mei-all.rng"
+            type="application/xml"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="5.1">
+  <meiHead>
+    <fileDesc>
+      <titleStmt>
+        <title>Single-Work-With-Two-Movements</title>
+        <respStmt>
+          <persName role="composer">Composer Test No 1</persName>
+        </respStmt>
+      </titleStmt>
+      <pubStmt/>
+    </fileDesc>
+
+    <workList>
+      <work>
+        <title>Single-Work-With-Two-Movements</title>
+        <respStmt>
+          <persName role="composer">Composer Test No 1</persName>
+        </respStmt>
+      </work>
+    </workList>
+  </meiHead>
+
+  <music>
+    <body>
+      <!-- Movement 1 -->
+      <mdiv xml:id="m1" label="Movement I: Allegro">
+        <title>Movement I: Allegro</title>
+      </mdiv>
+
+      <!-- Movement 2 -->
+      <mdiv xml:id="m2" label="Movement II: Adagio">
+        <title>Movement II: Adagio</title>
+      </mdiv>
+    </body>
+  </music>
+</mei>
+
+  <music>
+    <body>
+    </body>
+  </music>
+</mei>
