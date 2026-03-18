@@ -47,12 +47,12 @@ function AdvancedSearchPanel({ filters, onChange }) {
       </div>
 
       <div>
-        <label htmlFor="composition_date_text">Composition Date</label>
+        <label htmlFor="medium">Medium</label>
         <input
-          id="composition_date_text"
-          name="composition_date_text"
+          id="medium"
+          name="medium"
           type="text"
-          value={filters.composition_date_text}
+          value={filters.medium}
           onChange={onChange}
           style={{ width: "100%", padding: "0.5rem", marginTop: "0.25rem" }}
         />

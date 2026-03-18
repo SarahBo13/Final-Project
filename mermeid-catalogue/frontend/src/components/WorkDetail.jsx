@@ -25,6 +25,10 @@ function WorkDetail({ work }) {
     { key: "dedicatee", label: "Dedicatee" },
   ];
 
+  const nonComposerPeople = work.persons?.filter(
+  (person) => person.role?.toLowerCase() !== "composer"
+);
+
   return (
     <div>
       <h2>Details</h2>
@@ -34,17 +38,14 @@ function WorkDetail({ work }) {
           <em>{work.title_alt}</em>
         </p>
       )}
-      {roles.map(({ key, label }) => {
-        const value = groupByRole(key);
-        if (!value) return null;
-
-        return (
-          <p key={key}>
-            <strong>{label}:</strong> {value}
-          </p>
-        );
-      })}
-      {work.composition_date && (
+      <p>
+        <strong>Composer:</strong>{" "}
+        {work.persons
+          ?.filter((person) => person.role === "composer")
+          .map((person) => person.name)
+          .join(", ") || "—"}
+      </p>
+      {work.composition_date_text && (
         <p>
           <strong>Composition date:</strong> {work.composition_date_text}
         </p>
@@ -54,10 +55,53 @@ function WorkDetail({ work }) {
           <strong>Classification:</strong>  {work.classification?.replaceAll(",", ", ")}
         </p>
       )}
+      <h3> Musical information </h3>
+      {work.work_key && (
+        <p>
+          <strong>Key:</strong> {work.work_key}
+        </p>
+      )}
+      {work.tempo && (
+        <p>
+          <strong>Tempo:</strong> {work.tempo}
+        </p>
+      )}
+      {work.meter_count && (
+        <p>
+          <strong>Meter Count:</strong> {work.meter_count}
+        </p>
+      )}    
+      {work.meter_unit && (
+        <p>
+          <strong>Meter Unit:</strong> {work.meter_unit}
+        </p>
+      )}
+      {work.mediums?.length > 0 && (
+          <p>
+            <strong>Medium:</strong>{" "}
+            {work.mediums.map((m) => m.medium_name).join(", ")}
+          </p>
+        )}
+      {nonComposerPeople && nonComposerPeople.length > 0 && (   
+        <>   
+          <h3> Other Contributors </h3> 
+            {roles
+              .filter(({ key }) => key !== "composer")
+              .map(({ key, label }) => {
+                const value = groupByRole(key);
+                if (!value) return null;
 
+                return (
+                  <p key={key}>
+                    <strong>{label}:</strong> {value}
+                  </p>
+                );
+              })}
+        </> 
+      )}
       {work.movements && work.movements.length > 0 && (
         <>
-          <h4>Movements</h4>
+          <h3>Movements</h3>
           <ol>
             {work.movements.map((mvt) => (
               <li key={mvt.id}>{mvt.title || `Movement ${mvt.order}`}</li>
@@ -65,10 +109,9 @@ function WorkDetail({ work }) {
           </ol>
         </>
       )}
-
       {work.sources && work.sources.length > 0 && (
         <>
-          <h4>Sources</h4>
+          <h3>Sources</h3>
           <ul>
             {work.sources.map((src) => (
               <li key={src.id}>

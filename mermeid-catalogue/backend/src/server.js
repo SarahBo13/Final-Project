@@ -22,7 +22,7 @@ app.get("/api/health", async (req, res) => {
 // Work list with basic + advanced search
 app.get("/api/works", async (req, res) => {
   try {
-    const { q, title, composer, classification, composition_date_text, work_key, tempo, meter_count, meter_unit, composition_year_start, composition_year_end } = req.query;
+    const { q, title, composer, classification, medium, work_key, tempo, meter_count, meter_unit, composition_year_start, composition_year_end } = req.query;
 
     const conditions = [];
     const values = [];
@@ -97,11 +97,17 @@ app.get("/api/works", async (req, res) => {
     }
 
     // ----------------------------
-    // ADVANCED: composition date
+    // ADVANCED: medium
     // ----------------------------
-    if (composition_date_text && composition_date_text.trim()) {
-      conditions.push(`w.composition_date_text ILIKE $${i}`);
-      values.push(`%${composition_date_text.trim()}%`);
+    if (medium && medium.trim()) {
+      conditions.push(`
+        wm.medium_code IN (
+          SELECT DISTINCT medium_code
+          FROM work_medium
+          WHERE medium_name ILIKE $${i}
+        )
+      `);
+      values.push(`%${medium.trim()}%`);
       i++;
     }
 
@@ -171,7 +177,7 @@ app.get("/api/works", async (req, res) => {
     }
 
     let query = `
-      SELECT
+      SELECT DISTINCT
         w.id,
         w.title_main,
         w.title_alt,
@@ -184,6 +190,13 @@ app.get("/api/works", async (req, res) => {
         w.meter_count,
         w.meter_unit,
         REPLACE(REPLACE(REPLACE(w.classification, '{', ''), '}', ''), '"', '') AS classification,
+
+        (
+          SELECT string_agg(DISTINCT wm2.medium_name, ', ')
+          FROM work_medium wm2
+          WHERE wm2.work_id = w.id
+        ) AS medium,
+
         (
           SELECT string_agg(p.name, ', ')
           FROM work_person wp
@@ -191,7 +204,9 @@ app.get("/api/works", async (req, res) => {
           WHERE wp.work_id = w.id
             AND wp.role = 'composer'
         ) AS composer
+
       FROM work w
+      LEFT JOIN work_medium wm ON wm.work_id = w.id
     `;
 
     if (conditions.length > 0) {
@@ -274,9 +289,20 @@ app.get("/api/works/:id", async (req, res) => {
       [id]
     );
 
+    const mediumRes = await db.query(
+      `
+      SELECT medium_name, medium_code
+      FROM work_medium
+      WHERE work_id = $1
+      ORDER BY medium_name;
+      `,
+      [id]
+    );
+
     work.persons = personsRes.rows;
     work.movements = movementsRes.rows;
     work.sources = sourcesRes.rows;
+    work.mediums = mediumRes.rows;
 
     res.json(work);
   } catch (err) {
