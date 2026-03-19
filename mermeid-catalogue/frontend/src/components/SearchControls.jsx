@@ -73,85 +73,36 @@ function SearchControls({ onSearch, resultsCount }) {
     setShowAdvanced((prev) => !prev);
   }
 
+  const safeResultsCount = resultsCount ?? 0;
+
   return (
-    <section
-      style={{
-        background: "#7c8295",
-        border: "1px solid #3f3e42",
-        borderRadius: "12px",
-        padding: "1.5rem",
-        marginBottom: "1.5rem",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-      }}
-    >
-      <div style={{ marginBottom: "1rem" }}>
-        <h2
-          style={{
-            margin: 0,
-            fontSize: "1.2rem",
-            color: "#ffffff",
-          }}
-        >
-          Search Catalogue
-        </h2>
-        <p
-          style={{
-            margin: "0.35rem 0 0",
-            color: "#e5e7eb",
-            fontSize: "0.95rem",
-          }}
-        >
+    <section className="search-card">
+      <div className="search-card__header">
+        <h2 className="search-card__title">Search Catalogue</h2>
+        <p className="search-card__subtitle">
           Search works and refine your search using advanced filters
         </p>
       </div>
 
       <form onSubmit={handleSubmit}>
-        <div
-          style={{
-            display: "flex",
-            gap: "0.75rem",
-            alignItems: "center",
-            flexWrap: "wrap",
-            marginBottom: "1rem",
-          }}
-        >
+        <div className="search-card__row">
           <input
             id="search"
             type="text"
             placeholder="Search by title, catalogue number, composer..."
             value={basicQuery}
             onChange={(e) => setBasicQuery(e.target.value)}
-            style={{
-              flex: "1 1 320px",
-              minWidth: "260px",
-              padding: "0.8rem 1rem",
-              border: "1px solid #d1d5db",
-              borderRadius: "8px",
-              fontSize: "1rem",
-            }}
+            className="search-card__input"
           />
 
-          <button
-            type="submit"
-            style={{
-              padding: "0.75rem 1rem",
-              borderRadius: "8px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
+          <button type="submit" className="search-card__button search-card__button--primary">
             Search
           </button>
 
           <button
             type="button"
             onClick={toggleAdvanced}
-            style={{
-              padding: "0.75rem 1rem",
-              borderRadius: "8px",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="search-card__button search-card__button--secondary"
           >
             {showAdvanced ? "Hide advanced" : "Advanced search"}
           </button>
@@ -159,19 +110,14 @@ function SearchControls({ onSearch, resultsCount }) {
           <button
             type="button"
             onClick={handleClear}
-            style={{
-              padding: "0.75rem 1rem",
-              borderRadius: "8px",
-              border: "none",
-              cursor: "pointer",
-            }}
+            className="search-card__button search-card__button--ghost"
           >
             Clear
           </button>
         </div>
 
         {showAdvanced && (
-          <div style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+          <div className="search-card__advanced">
             <AdvancedSearchPanel
               filters={advancedFilters}
               onChange={handleAdvancedChange}
@@ -179,34 +125,12 @@ function SearchControls({ onSearch, resultsCount }) {
           </div>
         )}
 
-        <div
-          style={{
-            marginTop: "1rem",
-            paddingTop: "0.9rem",
-            borderTop: "1px solid rgba(255,255,255,0.25)",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: "1rem",
-            flexWrap: "wrap",
-          }}
-        >
-          <span
-            style={{
-              color: "#ffffff",
-              fontSize: "0.95rem",
-              fontWeight: 600,
-            }}
-          >
-            {resultsCount} result{resultsCount === 1 ? "" : "s"}
+        <div className="search-card__footer">
+          <span className="search-card__count">
+            {safeResultsCount} result{safeResultsCount === 1 ? "" : "s"}
           </span>
 
-          <span
-            style={{
-              color: "#e5e7eb",
-              fontSize: "0.92rem",
-            }}
-          >
+          <span className="search-card__feedback">
             {searchFeedback}
           </span>
         </div>

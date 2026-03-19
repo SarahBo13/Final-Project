@@ -6,7 +6,13 @@
 //   title_alt: String | null,
 //   catalogue_number: String | null,
 //   classification: String | null,
-//   notes: String | null
+//   meter_count: Integer | null,
+//   meter_unit: Integer | null,
+//   composition_date_text: String | null,
+//   composition_year_start: Integer | null,
+//   composition_year_end: Integer | null,
+//   work_key: String | null,
+//   tempo: String | null
 // }
 //
 // Design choice: Only first title is treated as main title, other titles are treated as secondary/ alternative

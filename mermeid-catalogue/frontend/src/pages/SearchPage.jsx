@@ -77,9 +77,9 @@ function SearchPage() {
   return (
     <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "1rem" }}>
       <h1>Music Catalogue</h1>
-      <p>Browsing works from the music catalogue.</p>
+      <p>Browse works from the music catalogue.</p>
 
-      <SearchControls onSearch={fetchWorks} />
+      <SearchControls onSearch={fetchWorks} resultsCount={works.length}/>
 
       {loading && <p>Loading works…</p>}
 
@@ -91,7 +91,7 @@ function SearchPage() {
             gap: "1rem",
           }}
         >
-          <WorkList works={works} onSelectWork={handleSelectWork} />
+          <WorkList works={works} onSelectWork={handleSelectWork} selectedWork={selectedWork}/>
           <WorkDetail work={selectedWork} />
         </div>
       )}
