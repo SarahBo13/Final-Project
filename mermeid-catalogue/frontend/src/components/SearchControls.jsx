@@ -89,7 +89,7 @@ function SearchControls({ onSearch, resultsCount }) {
           <input
             id="search"
             type="text"
-            placeholder="Search by title, catalogue number, composer..."
+            placeholder="Search by title, catalogue number, composer or medium"
             value={basicQuery}
             onChange={(e) => setBasicQuery(e.target.value)}
             className="search-card__input"

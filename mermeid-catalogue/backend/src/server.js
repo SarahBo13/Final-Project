@@ -46,6 +46,16 @@ app.get("/api/works", async (req, res) => {
               AND wp.role = 'composer'
               AND p.name ILIKE $${i}
           )
+          OR EXISTS (
+            SELECT 1
+            FROM work_medium wm
+            WHERE wm.work_id = w.id
+              AND wm.medium_code IN (
+                SELECT wm2.medium_code
+                FROM work_medium wm2
+                WHERE wm2.medium_name ILIKE $${i}
+              )
+          )
         )
       `);
       values.push(`%${q.trim()}%`);
