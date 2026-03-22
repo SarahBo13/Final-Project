@@ -268,6 +268,7 @@ function getWorkData(mei, filePath) {
     composition_year_end: null
   };
 
+  //Check that date found is a composition date, as some files encode the file creation date in same tag
   if (isLikelyCompositionDateNode(creationDateNode)) {
     compositionDate = parseCompositionDate(creationDateNode);
   }
