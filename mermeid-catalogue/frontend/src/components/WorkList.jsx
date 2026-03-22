@@ -1,5 +1,4 @@
-// display component for results 
-// receive worlks, loading, error, onSelectWork 
+// display work list for results 
 // no search logic
 
 function WorkList({ works = [], onSelectWork, selectedWork }) {

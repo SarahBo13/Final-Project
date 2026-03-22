@@ -1,4 +1,5 @@
 // Coordinates the whole workflow
+// Logging commands available but commented out or clearer overview in terminal
 
 const path = require("path");
 const fs = require("fs/promises");

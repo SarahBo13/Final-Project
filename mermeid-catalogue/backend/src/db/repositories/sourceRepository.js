@@ -1,3 +1,4 @@
+//SQL query to insert all found source into table source
 async function insertSource(db, workId, source) {
   const res = await db.query(
     `INSERT INTO source (

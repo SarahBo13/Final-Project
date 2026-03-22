@@ -1,3 +1,4 @@
+//SQL query to insert all found contributors in a work into table person and table work_person to link to related work
 async function insertPerson(db, p) {
   const existing = await db.query(
     "SELECT id FROM person WHERE name = $1",

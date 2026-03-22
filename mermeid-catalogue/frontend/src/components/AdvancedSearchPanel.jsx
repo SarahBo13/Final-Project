@@ -1,3 +1,4 @@
+//Advanced Search Functionality
 function AdvancedSearchPanel({ filters, onChange }) {
   return (
     <div className="advanced-panel">

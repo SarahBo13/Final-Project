@@ -1,3 +1,4 @@
+//Search Controls -> handle search workflow
 import { useState } from "react";
 import AdvancedSearchPanel from "./AdvancedSearchPanel";
 
@@ -21,6 +22,7 @@ function SearchControls({ onSearch, resultsCount }) {
 
   const [advancedFilters, setAdvancedFilters] = useState(emptyFilters);
 
+  //  Change to advanced search
   function handleAdvancedChange(e) {
     const { name, value } = e.target;
     setAdvancedFilters((prev) => ({
@@ -29,6 +31,7 @@ function SearchControls({ onSearch, resultsCount }) {
     }));
   }
 
+  // Search feedback functions (show x results, using filter y)
   function buildSearchFeedback(query, filters) {
     const activeAdvanced = Object.entries(filters).filter(
       ([, value]) => value.trim() !== ""
@@ -47,6 +50,7 @@ function SearchControls({ onSearch, resultsCount }) {
     return "Showing all works";
   }
 
+  // Submit Button Functionality
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -58,6 +62,7 @@ function SearchControls({ onSearch, resultsCount }) {
     setSearchFeedback(buildSearchFeedback(basicQuery, advancedFilters));
   }
 
+  // Clear Button Functionality
   function handleClear() {
     setBasicQuery("");
     setAdvancedFilters(emptyFilters);
@@ -69,6 +74,7 @@ function SearchControls({ onSearch, resultsCount }) {
     });
   }
 
+  //  TOggle Advance Functionality
   function toggleAdvanced() {
     setShowAdvanced((prev) => !prev);
   }

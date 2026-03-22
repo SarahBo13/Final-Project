@@ -1,4 +1,5 @@
 // Command line interface entry point only
+// Logging commands available but commented out or clearer overview in terminal
 
 const path = require("path");
 const fs = require("fs");
@@ -12,7 +13,7 @@ const MEI_DIR = path.resolve(__dirname, "../../mei_samples");
 async function main() {
   const fileName = process.argv[2];
 
-  // ---------- Single file import ----------
+  // Single file import
   if (fileName) {
     const filePath = path.join(MEI_DIR, fileName);
 
@@ -35,7 +36,7 @@ async function main() {
     return;
   }
 
-  // ---------- Folder import ----------
+  // Folder import
   logInfo("Folder import started", { directory: MEI_DIR });
 
   const files = fs

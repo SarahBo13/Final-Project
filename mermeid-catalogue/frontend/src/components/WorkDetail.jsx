@@ -1,3 +1,5 @@
+//Detail View of a work
+// no search logic
 function WorkDetail({ work }) {
   function formatClassification(value) {
     if (!value) return "—";

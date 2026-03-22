@@ -1,3 +1,4 @@
+//SQL query to insert parsed data on mediums for a work into table work_medium
 async function insertWorkMedium(db, workId, medium) {
   const res = await db.query(
     `INSERT INTO work_medium (work_id, medium_name, medium_code, medium_order)

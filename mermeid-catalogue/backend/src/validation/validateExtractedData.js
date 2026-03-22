@@ -1,3 +1,4 @@
+//Function to validate the data - used as final validation in importService.js
 function validateExtractedData(extracted) {
   if (!extracted.work) {
     throw new Error("No work data extracted");

@@ -1,3 +1,4 @@
+//SQL query to insert all metadata found into work table
 async function insertWork(db, work, fileName) {
   // Prefer MEI xml:id; fall back to filename
   const externalId = work?.mei_id || fileName || null;

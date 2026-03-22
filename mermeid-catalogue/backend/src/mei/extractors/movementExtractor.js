@@ -27,10 +27,6 @@ function pickDirectTextFromKeys(node, keys) {
 }
 
 // Extract movements from MEI object, returns: Array<{ position: number, title: string }>
-// Supports the following patterns:
-//  1. Multiple <work> entries in <workList> where xml:id contains "movement"
-//  2. Multiple <mdiv> elements inside <music><body>
-//  3. Explicit <movement> or <component> elements inside a <work></work>
 function getMovements(mei) {
   const movements = [];
 

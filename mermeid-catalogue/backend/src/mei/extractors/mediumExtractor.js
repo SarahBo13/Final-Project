@@ -8,6 +8,7 @@
 
 const { asArray, textOf, findMainWorkNode } = require("../helpers");
 
+// function to find work mediums
 function getWorkMediums(mei) {
   if (!mei) return [];
 
@@ -16,6 +17,7 @@ function getWorkMediums(mei) {
 
   const results = [];
 
+  //using nested structure of <perfMedium><perfResList><perfRes>
   const perfMediums = asArray(work.perfMedium);
 
   for (const pm of perfMediums) {
@@ -26,9 +28,9 @@ function getWorkMediums(mei) {
 
       for (const res of resources) {
         results.push({
-          medium_name: textOf(res),
-          medium_code: res?.$?.codedval || null,
-          medium_order: res?.$?.n ? Number(res.$.n) : null
+          medium_name: textOf(res), //text
+          medium_code: res?.$?.codedval || null, //attribute codedval
+          medium_order: res?.$?.n ? Number(res.$.n) : null //attribute n
         });
       }
     }

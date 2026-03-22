@@ -1,3 +1,4 @@
+//SQL query to insert found movements in a work into table movement
 async function insertMovement(db, workId, movement) {
   const res = await db.query(
     `INSERT INTO movement (work_id, position, title)

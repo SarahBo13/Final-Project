@@ -57,15 +57,16 @@ function getWorkTitles(mei) {
 function findCataloguePattern(text) {
   if (!text) return null;
 
+  // List of regex patterns for common catalogue systems used in musicology
   const patterns = [
-    /\bOp\.?\s*\d+(?:\s*No\.?\s*\d+)?[a-zA-Z0-9:\-\/]*\b/i,
-    /\bWoO\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i,
-    /\bBWV\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i,
-    /\bK\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i,
-    /\bKV\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i,
-    /\bHob\.?\s*[A-Z0-9:\-\/.]+\b/i,
-    /\bD\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i,
-    /\bRV\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i
+    /\bOp\.?\s*\d+(?:\s*No\.?\s*\d+)?[a-zA-Z0-9:\-\/]*\b/i,   // Opus numbers (e.g. "Op. 27 No. 2")
+    /\bWoO\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i, // WoO (Werk ohne Opuszahl) numbers
+    /\bBWV\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i, // Bach-Werke-Verzeichnis
+    /\bK\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i, // Köchel catalogue (Mozart), short form "K."
+    /\bKV\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i, // Köchel catalogue (Mozart), alternative "KV"
+    /\bHob\.?\s*[A-Z0-9:\-\/.]+\b/i, // Hoboken catalogue (Haydn)
+    /\bD\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i, // Deutsch catalogue (Schubert)
+    /\bRV\.?\s*\d+[a-zA-Z0-9:\-\/]*\b/i // Ryom catalogue (Vivaldi)
   ];
 
   for (const pattern of patterns) {
@@ -76,6 +77,7 @@ function findCataloguePattern(text) {
   return null;
 }
 
+//Function to find the catalogue number in <titleStmt> tag using the Pattern Match
 function getCatalogueNumberFromTitleStmt(mei) {
   const titles = getTitleStmtTitles(mei);
 
