@@ -1,3 +1,4 @@
+// API ENDPOINTS
 const express = require("express");
 const cors = require("cors");
 const db = require("./db/db");
@@ -28,10 +29,9 @@ app.get("/api/works", async (req, res) => {
     const values = [];
     let i = 1;
 
-    // ----------------------------
+
     // BASIC SEARCH
     // Searches across title, alt title, catalogue number, and composer
-    // ----------------------------
     if (q && q.trim()) {
       conditions.push(`
         (
@@ -62,9 +62,7 @@ app.get("/api/works", async (req, res) => {
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: title
-    // ----------------------------
     if (title && title.trim()) {
       conditions.push(`
         (
@@ -76,9 +74,7 @@ app.get("/api/works", async (req, res) => {
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: composer
-    // ----------------------------
     if (composer && composer.trim()) {
       conditions.push(`
         EXISTS (
@@ -94,10 +90,8 @@ app.get("/api/works", async (req, res) => {
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: classification
     // Searches against a cleaned string version
-    // ----------------------------
     if (classification && classification.trim()) {
       conditions.push(`
         REPLACE(REPLACE(REPLACE(w.classification, '{', ''), '}', ''), '"', '') ILIKE $${i}
@@ -106,9 +100,7 @@ app.get("/api/works", async (req, res) => {
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: medium
-    // ----------------------------
     if (medium && medium.trim()) {
       conditions.push(`
         wm.medium_code IN (
@@ -121,45 +113,35 @@ app.get("/api/works", async (req, res) => {
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: work key
-    // ----------------------------
     if (work_key && work_key.trim()) {
       conditions.push(`w.work_key ILIKE $${i}`);
       values.push(`%${work_key.trim()}%`);
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: tempo
-    // ----------------------------
     if (tempo && tempo.trim()) {
       conditions.push(`w.tempo ILIKE $${i}`);
       values.push(`%${tempo.trim()}%`);
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: meter_count
-    // ----------------------------
     if (meter_count && meter_count.trim()) {
       conditions.push(`CAST(w.meter_count AS TEXT) ILIKE $${i}`);
       values.push(`%${meter_count.trim()}%`);
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: meter_unit
-    // ----------------------------
     if (meter_unit && meter_unit.trim()) {
       conditions.push(`CAST(w.meter_unit AS TEXT) ILIKE $${i}`);
       values.push(`%${meter_unit.trim()}%`);
       i++;
     }
 
-    // ----------------------------
     // ADVANCED: composition_year_start to composition_year_end
-    // ----------------------------
     if (composition_year_start && composition_year_end) {
       conditions.push(`
         w.composition_year_start IS NOT NULL
