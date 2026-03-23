@@ -17,3 +17,7 @@ Vite
 
 TESTING
 Jest
+
+MEI Samples Files taken from the verified Github Account of the Music Encoding Initiative
+https://github.com/music-encoding
+https://github.com/music-encoding/sample-encodings/tree/main/MEI_5.1

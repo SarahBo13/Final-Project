@@ -1,27 +1,3 @@
-//OLD STRUCTURE:
-// mermeid-catalogue/
-//   backend/
-//     jest.config.cjs
-//     package.json
-//     src/
-//       db.js
-//       import_mei.js
-//       server.js
-//     mei_samples
-//     test_data/
-//       mei
-//     tests
-//   frontend/
-//     package.json
-//     index.html
-//     src/
-//       main.jsx
-//       App.jsx
-//       components/
-//         WorkList.jsx
-//         WorkDetail.jsx
-
-//RESTRUCTURED:
 mermeid-catalogue/
   backend/
     jest.config.cjs 
@@ -71,6 +47,11 @@ mermeid-catalogue/
   src/
     main.jsx
     App.jsx
+    index.css
     components/
       WorkList.jsx
       WorkDetail.jsx
+      SearchControls.jsx
+      AdvancesSearchPanel.jsx
+    pages/
+      SearchPage.jsx
